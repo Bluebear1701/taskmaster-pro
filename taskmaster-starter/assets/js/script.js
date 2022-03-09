@@ -95,8 +95,7 @@ $(".list-group").on("click", "p", function () {
 });
 $(".list-group").on("blur", "textarea", function () {
 
-  var text = $(this)
-    .val()
+  var text = $(this).val()
 
   var status = $(this)
     .closest(".list-group")
@@ -124,12 +123,22 @@ $(".list-group").on("click", "span", function () {
     .text()
     .trim()
 
+  //create new input element
+  var dateInput = $("<input>")
+    .attr("type", "text")
+    .addClass("form-control")
+    .val(date);
+
+  //swap out elements
+  $(this).replaceWith(dateInput);
+
+  //automatically focus on new element
+  dateInput.trigger("focus");
+
   // value of due date was changed
   $(".list-group").on("blur", "input[type='text']", function () {
     // get current text
-    var date = $(this)
-      .val()
-      .trim();
+    var date = $(this).val()
 
     // get the parent ul's id attribute
     var status = $(this)
@@ -155,17 +164,6 @@ $(".list-group").on("click", "span", function () {
     $(this).replaceWith(taskSpan);
   });
 
-  //create new input element
-  var dateInput = $("<input>")
-    .attr("type", "text")
-    .addClass("form-control")
-    .val(date);
-
-  //swap out elements
-  $(this).replaceWith(dateInput);
-
-  //automatically focus on new element
-  dateInput.trigger("focus");
 });
 
 // remove all tasks
